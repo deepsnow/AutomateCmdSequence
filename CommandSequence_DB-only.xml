@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-16"?>
+<CmdSequence xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/AutomateCmdSequenceLib">
+	<LogDirectory>E:\tools\build_automation_for_devs\logs</LogDirectory>
+	<RootSourceDirectory>E:\Insight50</RootSourceDirectory>
+	<Sequence>
+
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i KilleDiscoConnections.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>AppDB_KilleDiscoConnections.log</OutputFileName>
+			<WorkingDirectory>E:\tools\build_automation_for_devs\jason_maronge\newer\original_new\BuildScripts\EDISCO</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>Dev-SqlServer</CmdArgs>
+			<CmdStr>DeleteDatabases.bat</CmdStr>
+			<OutputFileName>AppDB_DeleteDatabases.log</OutputFileName>
+			<WorkingDirectory>AppDatabase\InstallScripts</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>Dev-SqlServer</CmdArgs>
+			<CmdStr>InstallDatabases.bat</CmdStr>
+			<OutputFileName>AppDB_InstallDatabases.log</OutputFileName>
+			<WorkingDirectory>AppDatabase\InstallScripts</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>host=Dev-SqlServer syspass=Acce$$data1 -uninstall -noprompt</CmdArgs>
+			<CmdStr>DBControl.exe</CmdStr>
+			<OutputFileName>ADG_DBControl_uninstall.log</OutputFileName>
+			<WorkingDirectory>business-services-common\target\bin\vc100\Debug.x64</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i DropADGDatabase.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_DropAdgDatabase.log</OutputFileName>
+			<WorkingDirectory>E:\tools\build_automation_for_devs\jason_maronge\newer\original_new\BuildScripts\COM_BS</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i DropADGCaseDbs.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_DropADGCaseDbs.log</OutputFileName>
+			<WorkingDirectory>E:\tools\build_automation_for_devs\jason_maronge\newer\original_new\BuildScripts\COM_BS</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i DropADGLogins.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_DropADGLogins.log</OutputFileName>
+			<WorkingDirectory>E:\tools\build_automation_for_devs\jason_maronge\newer\original_new\BuildScripts\COM_BS</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>host=Dev-SqlServer syspass=Acce$$data1 -install -noprompt</CmdArgs>
+			<CmdStr>DBControl.exe</CmdStr>
+			<OutputFileName>ADG_DBControl_install.log</OutputFileName>
+			<WorkingDirectory>business-services-common\target\bin\vc100\Debug.x64</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i KillADGConnections.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_KillADGConnections.log</OutputFileName>
+			<WorkingDirectory>E:\tools\build_automation_for_devs\jason_maronge\newer\original_new\BuildScripts\COM_BS</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i CreateADGAdminUser58.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_CreateADGAdminUser58.log</OutputFileName>
+			<WorkingDirectory>E:\tools\build_automation_for_devs\jason_maronge\newer\original_new\BuildScripts\COM_BS</WorkingDirectory>
+		</Command>
+		
+	</Sequence>
+</CmdSequence>

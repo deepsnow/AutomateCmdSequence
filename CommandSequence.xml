@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-16"?>
+<CmdSequence xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/AutomateCmdSequenceLib">
+    <EnvPathStrings>
+        <EnvPathStr>
+            <Path>E:\Insight50\AppDatabase\InstallScripts</Path>
+        </EnvPathStr>
+        <EnvPathStr>
+            <Path>E:\Insight50\business-services-common\target\bin\vc100\Debug.x64</Path>
+        </EnvPathStr>
+        <EnvPathStr>
+            <Path>e:\Insight50\ediscovery-services\InfrastructureSource\WorkExecution.Host</Path>
+        </EnvPathStr>
+        <EnvPathStr>
+            <Path>C:\Windows\Microsoft.NET\Framework\v4.0.30319</Path>
+        </EnvPathStr>
+    </EnvPathStrings>
+    <EnvVars />
+	<LogDirectory>E:\tools\daxtell\AutomateCmdSequenceTool\logs</LogDirectory>
+	<RootSourceDirectory>E:\Insight50</RootSourceDirectory>
+	<Sequence>
+		<Command>
+			<CmdArgs>/c E:\apache-maven-3.2.1\bin\mvn.bat clean</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>BSC_mvn_clean.log</OutputFileName>
+			<WorkingDirectory>business-services-common</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>/c E:\apache-maven-3.2.1\bin\mvn.bat clean</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>ES_mvn_clean.log</OutputFileName>
+			<WorkingDirectory>ediscovery-services</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>/c E:\apache-maven-3.2.1\bin\mvn.bat clean</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>MAP_mvn_clean.log</OutputFileName>
+			<WorkingDirectory>MAP</WorkingDirectory>
+		</Command>
+
+		<Command>
+			<CmdArgs>update --non-interactive</CmdArgs>
+			<CmdStr>svn.exe</CmdStr>
+			<OutputFileName>AppDB_svn_update.log</OutputFileName>
+			<WorkingDirectory>AppDatabase</WorkingDirectory>
+		</Command>		
+		<Command>
+			<CmdArgs>update --non-interactive</CmdArgs>
+			<CmdStr>svn.exe</CmdStr>
+			<OutputFileName>BSC_svn_update.log</OutputFileName>
+			<WorkingDirectory>business-services-common</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>update --non-interactive</CmdArgs>
+			<CmdStr>svn.exe</CmdStr>
+			<OutputFileName>ES_svn_update.log</OutputFileName>
+			<WorkingDirectory>ediscovery-services</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>update --non-interactive</CmdArgs>
+			<CmdStr>svn.exe</CmdStr>
+			<OutputFileName>MAP_svn_update.log</OutputFileName>
+			<WorkingDirectory>MAP</WorkingDirectory>
+		</Command>
+		
+		<Command>
+			<CmdArgs>/c E:\apache-maven-3.2.1\bin\mvn.bat process-resources -e</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>BSC_mvn_process-resources.log</OutputFileName>
+			<WorkingDirectory>business-services-common</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>/c E:\apache-maven-3.2.1\bin\mvn.bat process-resources -e</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>ES_mvn_process-resources.log</OutputFileName>
+			<WorkingDirectory>ediscovery-services</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>/c E:\apache-maven-3.2.1\bin\mvn.bat process-resources -e</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>MAP_mvn_process-resources.log</OutputFileName>
+			<WorkingDirectory>MAP</WorkingDirectory>
+		</Command>
+
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i KilleDiscoConnections.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>AppDB_KilleDiscoConnections.log</OutputFileName>
+			<WorkingDirectory>E:\tools\daxtell\AutomateCmdSequenceTool\scripts\eDisco</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>/c DeleteDatabases.bat Dev-SqlServer</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>AppDB_DeleteDatabases.log</OutputFileName>
+			<WorkingDirectory>AppDatabase\InstallScripts</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>/c InstallDatabases.bat Dev-SqlServer</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>AppDB_InstallDatabases.log</OutputFileName>
+			<WorkingDirectory>AppDatabase\InstallScripts</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>host=Dev-SqlServer syspass=Acce$$data1 -uninstall -noprompt</CmdArgs>
+			<CmdStr>DBControl.exe</CmdStr>
+			<OutputFileName>ADG_DBControl_uninstall.log</OutputFileName>
+			<WorkingDirectory>business-services-common\target\bin\vc100\Debug.x64</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i DropADGDatabase.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_DropAdgDatabase.log</OutputFileName>
+			<WorkingDirectory>E:\tools\daxtell\AutomateCmdSequenceTool\scripts\BSC</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i DropADGCaseDbs.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_DropADGCaseDbs.log</OutputFileName>
+			<WorkingDirectory>E:\tools\daxtell\AutomateCmdSequenceTool\scripts\BSC</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i DropADGLogins.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_DropADGLogins.log</OutputFileName>
+			<WorkingDirectory>E:\tools\daxtell\AutomateCmdSequenceTool\scripts\BSC</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>host=Dev-SqlServer syspass=Acce$$data1 -install -noprompt</CmdArgs>
+			<CmdStr>DBControl.exe</CmdStr>
+			<OutputFileName>ADG_DBControl_install.log</OutputFileName>
+			<WorkingDirectory>business-services-common\target\bin\vc100\Debug.x64</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i KillADGConnections.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_KillADGConnections.log</OutputFileName>
+			<WorkingDirectory>E:\tools\daxtell\AutomateCmdSequenceTool\scripts\BSC</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>-E -S Dev-SqlServer -i CreateADGAdminUser512.sql</CmdArgs>
+			<CmdStr>osql</CmdStr>
+			<OutputFileName>ADG_CreateADGAdminUser512.log</OutputFileName>
+			<WorkingDirectory>E:\tools\daxtell\AutomateCmdSequenceTool\scripts\BSC</WorkingDirectory>
+		</Command>
+		
+		<Command>
+			<CmdArgs>"FTK.BusinessServices.sln" /p:Platform="x64" /p:Configuration="Debug" /t:"Clean" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>FTK_BS_sln_clean_x64.log</OutputFileName>
+			<WorkingDirectory>business-services-common</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>"FTK.BusinessServices.sln" /p:Platform="x64" /p:Configuration="Debug" /t:"Build" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>FTK_BS_sln_build_x64_debug.log</OutputFileName>
+			<WorkingDirectory>business-services-common</WorkingDirectory>
+		</Command>
+		
+		<Command>
+			<CmdArgs>"Infrastructure - Services.sln" /p:Platform="Any CPU" /p:Configuration="Debug" /t:"Clean" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>ES_Infra_sln_clean_anycpu.log</OutputFileName>
+			<WorkingDirectory>ediscovery-services</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>"eDiscovery - Services.sln" /p:Platform="Any CPU" /p:Configuration="Debug" /t:"Clean" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>ES_eDisco_sln_clean_anycpu.log</OutputFileName>
+			<WorkingDirectory>ediscovery-services</WorkingDirectory>
+		</Command>
+		
+		<Command>
+			<CmdArgs>"Infrastructure - Services.sln" /p:Platform="Any CPU" /p:Configuration="Debug" /t:"Build" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>ES_Infra_sln_build_anycpu_debug.log</OutputFileName>
+			<WorkingDirectory>ediscovery-services</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>"eDiscovery - Services.sln" /p:Platform="Any CPU" /p:Configuration="Debug" /t:"Build" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>ES_eDisco_sln_build_anycpu_debug.log</OutputFileName>
+			<WorkingDirectory>ediscovery-services</WorkingDirectory>
+		</Command>
+		
+		<Command>
+			<CmdArgs>/c CopyDependencies.bat debug x64 true</CmdArgs>
+			<CmdStr>cmd.exe</CmdStr>
+			<OutputFileName>WM_file_copy.log</OutputFileName>
+			<WorkingDirectory>ediscovery-services\InfrastructureSource\WorkExecution.Host</WorkingDirectory>
+		</Command>
+		
+		<Command>
+			<CmdArgs>"ADG.Review.sln" /p:Platform="Any CPU" /p:Configuration="Debug" /t:"Clean" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>MAP_Rev_sln_clean_anycpu.log</OutputFileName>
+			<WorkingDirectory>MAP</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>"ADG.MAP.sln" /p:Platform="Any CPU" /p:Configuration="Debug" /t:"Clean" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>MAP_Map_sln_clean_anycpu.log</OutputFileName>
+			<WorkingDirectory>MAP</WorkingDirectory>
+		</Command>
+		
+		<Command>
+			<CmdArgs>"ADG.Review.sln" /p:Platform="Any CPU" /p:Configuration="Debug" /t:"Build" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>MAP_Rev_sln_build_anycpu_debug.log</OutputFileName>
+			<WorkingDirectory>MAP</WorkingDirectory>
+		</Command>
+		<Command>
+			<CmdArgs>"ADG.MAP.sln" /p:Platform="Any CPU" /p:Configuration="Debug" /t:"Build" /maxcpucount:1 /nologo /verbosity:normal</CmdArgs>
+			<CmdStr>MSBuild.exe</CmdStr>
+			<OutputFileName>MAP_Map_sln_build_anycpu_debug.log</OutputFileName>
+			<WorkingDirectory>MAP</WorkingDirectory>
+		</Command>
+		
+	</Sequence>
+</CmdSequence>
